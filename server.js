@@ -1,7 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
-// const logger = require('./middlewares/logger');
 const connectDB = require('./config/db');
 
 // Route files
@@ -17,10 +16,13 @@ connectDB();
 
 const app = express();
 
+// Body parser
+app.use(express.json());
+
+// Dev Loggin Middleware
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
-// app.use(logger);
 
 // Nount routers
 app.use('/api/v1/bootcamps', bootcamps);
